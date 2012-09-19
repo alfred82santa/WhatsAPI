@@ -60,13 +60,12 @@ class WhatsProt
     
     public function encryptPassword()
     {
-    	if(stripos($this->_imei, ":") !== false){
-    		$this->_imei = strtoupper($this->_imei);
-    		return md5($this->_imei.$this->_imei);
+        if( is_int($this->_imei) ) {
+            return md5(strrev($this->_imei));
     	}
-        else {
-        	return md5(strrev($this->_imei));
-        }
+        $this->_imei = strtoupper($this->_imei);
+        $this->_imei = str_replace('-',':', $this->_imei);
+        return md5($this->_imei . $this->_imei);
     }
 
     protected function authenticate($nonce)

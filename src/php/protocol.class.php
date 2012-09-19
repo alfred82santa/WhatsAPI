@@ -461,6 +461,10 @@ class BinTreeNodeWriter
             $this->_output .= "\xfc";
             $this->writeInt8($len);
         }
+
+        if( mb_detect_encoding($bytes) != 'UTF-8' ) {
+            $bytes = utf8_encode($bytes);
+        }
         $this->_output .= $bytes;
     }
 
